@@ -12,18 +12,19 @@ class MovieDetailsPresenter: MovieDetailsInterfaceOut
     weak var ui: MovieDetailsInterfaceIn!
     var coordinator: Coordinator!
     
-    let input: MovieDetailsInput
+    var input: MovieDetailsInput
+    let moviesRepository: MoviesRepositoryProtocol
 
-    init(ui: MovieDetailsInterfaceIn, coordinator: Coordinator, input: MovieDetailsInput) {
+    init(ui: MovieDetailsInterfaceIn, coordinator: Coordinator, input: MovieDetailsInput, moviesRepository: MoviesRepositoryProtocol) {
         self.ui = ui
         self.coordinator = coordinator
         self.input = input
+        self.moviesRepository = moviesRepository
     }
     
     // MARK: MovieDetailsInterfaceOut
     
     func didLoad() {
-                
         refreshUsing(input: input)
     }
     
@@ -31,8 +32,24 @@ class MovieDetailsPresenter: MovieDetailsInterfaceOut
         coordinator.navigate(to: .back)
     }
     
+    func markAsFavourite(_ favourite: Bool) {
+        moviesRepository.markAs(favourite: favourite, movieId: input.id) { _ in }
+        input.isFavourite = favourite
+        
+        NotificationCenter.default.post(name: .movieDetailsInputUpdated, object: input)
+    }
+    
     private func refreshUsing(input: MovieDetailsInput) {
-        self.ui.refreshMovie(input: input)
+        let userRateText = NSLocalizedString("User rate: ", comment: "") + "\(input.averageRate)"
+        
+        let model = MovieDetailsViewModel(id: input.id,
+                                          title: input.title,
+                                          overview: input.overview,
+                                          releaseText: input.releaseDate,
+                                          userRateText: userRateText,
+                                          isFavourite: input.isFavourite)
+        
+        self.ui.refreshMovie(model: model)
         
         let imageDownloader = ImageDownloader(url: input.posterUrl)
         imageDownloader.download(completed: { [weak self] image in

@@ -10,12 +10,12 @@ import UIKit
 protocol MovieDetailsInterfaceIn: AnyObject
 {
     func refreshMoviePoster(image: UIImage)
-    func refreshMovie(input: MovieDetailsInput)
-    func showErrorAlert(message: String)
+    func refreshMovie(model: MovieDetailsViewModel)
 }
 
 protocol MovieDetailsInterfaceOut: AnyObject
 {
     func didLoad()
     func goBackAction()
+    func markAsFavourite(_ favourite: Bool)
 }

@@ -13,6 +13,7 @@ final class MoviesRepositoryTest: XCTestCase {
     var sut: MoviesRepository!
     
     private var serviceMock: MoviesServiceMock!
+    private var storageMock: MoviesStorageMock!
     private var dummyError: NSError!
     private var dummyMovieResults: MovieResults!
     private var dummyAPIConfig: APIConfig!
@@ -21,11 +22,12 @@ final class MoviesRepositoryTest: XCTestCase {
         try super.setUpWithError()
         
         serviceMock = MoviesServiceMock()
+        storageMock = MoviesStorageMock()
         dummyError = CoreTests.NSErrors.generalError
         dummyMovieResults = CoreTests.Movies.sampleNowPlayingResults
         dummyAPIConfig = CoreTests.API.sampleApiConfig
         
-        sut = MoviesRepository(service: serviceMock)
+        sut = MoviesRepository(service: serviceMock, storage: storageMock)
     }
 
     override func tearDownWithError() throws {
@@ -34,6 +36,7 @@ final class MoviesRepositoryTest: XCTestCase {
         sut = nil
         
         serviceMock = nil
+        storageMock = nil
         dummyError = nil
         dummyMovieResults = nil
         dummyAPIConfig = nil
@@ -126,5 +129,48 @@ final class MoviesRepositoryTest: XCTestCase {
         // Expected results
         XCTAssertTrue(completed)
         XCTAssertTrue(serviceMock.requestAPIConfigCalled)
+    }
+    
+    func testMarkAsFavourite_success_savesIdState() throws {
+        // Given
+        let movieId = 123
+        var completed = false
+        
+        // when
+        sut.markAs(favourite: true, movieId: movieId) { success in
+            completed = true
+            XCTAssertTrue(success)
+        }
+        
+        // Expected results
+        XCTAssertTrue(completed)
+        XCTAssertTrue(storageMock.markAsFavouriteCalled)
+    }
+    
+    func testIsFavouriteMovie_checkUnmarked_returnsFalseState() throws {
+        // Given
+        let movieId = 123
+        
+        // when
+        let isFavourite = sut.isFavourite(movieId: movieId)
+        
+        // Expected results
+        XCTAssertFalse(isFavourite)
+        XCTAssertTrue(storageMock.isFavouriteCalled)
+    }
+    
+    func testIsFavouriteMovie_checkMarked_returnsTrueState() throws {
+        // Given
+        let movieId = 100
+        
+        // when
+        sut.markAs(favourite: true, movieId: movieId) { _ in }
+        
+        let isFavourite = sut.isFavourite(movieId: movieId)
+        
+        // Expected results
+        XCTAssertTrue(isFavourite)
+        XCTAssertTrue(storageMock.isFavouriteCalled)
+        XCTAssertTrue(storageMock.markAsFavouriteCalled)
     }
 }

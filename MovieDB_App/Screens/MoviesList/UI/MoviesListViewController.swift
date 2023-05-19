@@ -28,7 +28,10 @@ class MoviesListViewController: UIViewController, MoviesListInterfaceIn
         self.presenter.didLoad()
         
         failureInfoLabel.text = ""
-        loadingView.stopAnimating()
+        
+        if !items.isEmpty {
+            loadingView.stopAnimating()
+        }
     }
     
     // MARK: MoviesListInterfaceIn
@@ -63,6 +66,16 @@ extension MoviesListViewController: UISearchBarDelegate {
     }
 }
 
+extension MoviesListViewController: MovieItemCellDelegate {
+    
+    func movieItemCellDidMarkAs(favourite: Bool, movieId: Int) {
+        guard let selectedItem = self.items.filter({ $0.id == movieId }).first else { return }
+        
+        selectedItem.isFavourite = favourite
+        presenter.selectedButton(favourite: favourite, movieId: movieId)
+    }
+}
+
 extension MoviesListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -71,6 +84,7 @@ extension MoviesListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! MovieItemCell
         
         let item = items[indexPath.row]
+        cell.delegate = self
         cell.configure(model: item)
         
         return cell
@@ -78,6 +92,13 @@ extension MoviesListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.items.count
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        if items.count > 1 && indexPath.row == items.count - 1 {
+            presenter.loadNextPage()
+        }
     }
 }
 

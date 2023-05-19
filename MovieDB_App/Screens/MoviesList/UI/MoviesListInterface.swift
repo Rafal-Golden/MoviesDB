@@ -21,4 +21,6 @@ protocol MoviesListInterfaceOut: AnyObject
     
     func didLoad()
     func didSelectedCell(index: Int)
+    func selectedButton(favourite: Bool, movieId: Int)
+    func loadNextPage()
 }

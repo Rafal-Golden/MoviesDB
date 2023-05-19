@@ -11,5 +11,14 @@ struct MovieDetailsInput {
     var id: Int
     var title: String
     var overview: String
+    var releaseDate: String
+    var averageRate: Double
     var posterUrl: URL?
+    var isFavourite: Bool
+    
+    static let updatedNotificationName = Notification.Name("MovieDetailsInput.Updated")
+}
+
+extension Notification.Name {
+    static let movieDetailsInputUpdated = MovieDetailsInput.updatedNotificationName
 }

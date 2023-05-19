@@ -48,6 +48,19 @@
                                                         </mask>
                                                     </variation>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fdF-eF-obs">
+                                                    <rect key="frame" x="368" y="0.0" width="42" height="42"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="42" id="dyg-Yb-Sax"/>
+                                                        <constraint firstAttribute="width" constant="42" id="jpG-eb-pWK"/>
+                                                    </constraints>
+                                                    <color key="tintColor" systemColor="systemRedColor"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" image="star" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="buttonAction:" destination="WYm-ok-5LD" eventType="touchUpInside" id="kkW-qg-aoZ"/>
+                                                    </connections>
+                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NNM-IA-AwX">
                                                     <rect key="frame" x="110" y="35" width="41.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -67,12 +80,15 @@
                                                 <constraint firstAttribute="bottom" secondItem="2kC-4m-iER" secondAttribute="bottom" constant="4" id="5MZ-kg-f5u"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="NNM-IA-AwX" secondAttribute="trailing" constant="20" id="CZQ-Ma-PQH"/>
                                                 <constraint firstItem="NNM-IA-AwX" firstAttribute="centerY" secondItem="zqz-bR-sGj" secondAttribute="centerY" id="DbV-IF-cTy"/>
+                                                <constraint firstItem="fdF-eF-obs" firstAttribute="top" secondItem="zqz-bR-sGj" secondAttribute="top" id="dib-ye-NXm"/>
                                                 <constraint firstItem="NNM-IA-AwX" firstAttribute="leading" secondItem="xbj-JQ-6as" secondAttribute="trailing" constant="20" id="fqF-Zw-oqh"/>
+                                                <constraint firstAttribute="trailing" secondItem="fdF-eF-obs" secondAttribute="trailing" constant="4" id="oSp-rS-tW8"/>
                                                 <constraint firstItem="xbj-JQ-6as" firstAttribute="leading" secondItem="zqz-bR-sGj" secondAttribute="leading" id="qaL-dh-SII"/>
                                                 <constraint firstAttribute="bottom" secondItem="xbj-JQ-6as" secondAttribute="bottom" id="v9E-QH-Sgt"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="favouriteButton" destination="fdF-eF-obs" id="esp-kT-jS8"/>
                                             <outlet property="imgView" destination="xbj-JQ-6as" id="fXh-Nc-NTO"/>
                                             <outlet property="releaseLabel" destination="2kC-4m-iER" id="lIU-HO-wPY"/>
                                             <outlet property="titleLabel" destination="NNM-IA-AwX" id="UZe-sw-oRy"/>
@@ -127,8 +143,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="star" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

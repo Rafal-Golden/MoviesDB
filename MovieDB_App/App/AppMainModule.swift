@@ -11,6 +11,7 @@ class AppMainModule {
     
     class func injectMoviesRepository() -> MoviesRepositoryProtocol {
         let service = MoviesService()
-        return MoviesRepository(service: service)
+        let moviesStorage = MoviesStorage()
+        return MoviesRepository(service: service, storage: moviesStorage)
     }
 }
