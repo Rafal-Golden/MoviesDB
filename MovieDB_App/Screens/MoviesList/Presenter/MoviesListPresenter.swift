@@ -40,6 +40,8 @@ class MoviesListPresenter: MoviesListInterfaceOut
     }
     
     func didSelectedCell(index: Int) {
+        guard moviesModel.inputs.count > index && index >= 0 else { return }
+        
         var input = moviesModel.inputs[index]
         input.isFavourite = moviesRepository.isFavourite(movieId: input.id)
         coordinator.navigate(to: .movieDetails(input: input))
