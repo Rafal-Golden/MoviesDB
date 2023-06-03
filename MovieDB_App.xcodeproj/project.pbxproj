@@ -47,6 +47,7 @@
 		997B685D2A1778FD002A4532 /* MoviesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B685C2A1778FD002A4532 /* MoviesStorage.swift */; };
 		997B685F2A177F9E002A4532 /* MoviesStorageMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B685E2A177F9E002A4532 /* MoviesStorageMock.swift */; };
 		997B68612A1792BB002A4532 /* MovieDetailsPresenter+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B68602A1792BB002A4532 /* MovieDetailsPresenter+Init.swift */; };
+		99C979A62A2B869A00F6BCD1 /* ImageDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C979A52A2B869A00F6BCD1 /* ImageDownloaderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +112,7 @@
 		997B685C2A1778FD002A4532 /* MoviesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesStorage.swift; sourceTree = "<group>"; };
 		997B685E2A177F9E002A4532 /* MoviesStorageMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesStorageMock.swift; sourceTree = "<group>"; };
 		997B68602A1792BB002A4532 /* MovieDetailsPresenter+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieDetailsPresenter+Init.swift"; sourceTree = "<group>"; };
+		99C979A52A2B869A00F6BCD1 /* ImageDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloaderTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 			children = (
 				997B68292A14FF5A002A4532 /* AppCoordinatorTest.swift */,
 				997B67F02A14D566002A4532 /* MoviesRepositoryTest.swift */,
+				99C979A52A2B869A00F6BCD1 /* ImageDownloaderTests.swift */,
 				997B68272A14FEFA002A4532 /* MoviesServiceMock.swift */,
 				997B685E2A177F9E002A4532 /* MoviesStorageMock.swift */,
 				997B68422A165756002A4532 /* jsonObjects */,
@@ -487,6 +490,7 @@
 			files = (
 				997B685F2A177F9E002A4532 /* MoviesStorageMock.swift in Sources */,
 				997B682B2A150072002A4532 /* MoviesRepositoryTest.swift in Sources */,
+				99C979A62A2B869A00F6BCD1 /* ImageDownloaderTests.swift in Sources */,
 				997B682E2A150254002A4532 /* AppCoordinatorTest.swift in Sources */,
 				997B68342A150D7B002A4532 /* CoreTests.swift in Sources */,
 				997B68282A14FEFA002A4532 /* MoviesServiceMock.swift in Sources */,

@@ -7,16 +7,30 @@
 
 import UIKit
 
+protocol ImageDataTaskProtocol {
+    func downloadData(with request: URLRequest, completion: @escaping (Data?, Error?) -> Void)
+}
+
+class ImageDataTask: ImageDataTaskProtocol {
+    
+    func downloadData(with request: URLRequest, completion: @escaping (Data?, Error?) -> Void) {
+        let task = URLSession.shared.dataTask(with: request) { imgData, _, error in
+            DispatchQueue.main.async {
+                completion(imgData, error)
+            }
+        }
+        task.resume()
+    }
+}
+
 class ImageDownloader {
     
     let url: URL?
+    let imageDataTask: ImageDataTaskProtocol
     
-    init(imageUrl: String) {
-        self.url = URL(string: imageUrl)
-    }
-    
-    init(url: URL?) {
+    init(url: URL?, imageDataTask: ImageDataTaskProtocol) {
         self.url = url
+        self.imageDataTask = imageDataTask
     }
     
     func download(completed: @escaping (UIImage?) -> Void) {
@@ -26,15 +40,23 @@ class ImageDownloader {
         }
         
         let request = URLRequest(url: url)
-        let task = URLSession.shared.dataTask(with: request) { imgData, _, error in
-            DispatchQueue.main.async {
-                if let imgData, error == nil {
-                    completed(UIImage(data: imgData))
-                } else {
-                    completed(nil)
-                }
+        imageDataTask.downloadData(with: request) { imgData, error in
+            if let imgData, error == nil {
+                completed(UIImage(data: imgData))
+            } else {
+                completed(nil)
             }
         }
-        task.resume()
+    }
+}
+
+extension ImageDownloader {
+    
+    convenience init(url: URL?) {
+        self.init(url: url, imageDataTask: ImageDataTask())
+    }
+    
+    convenience init(imageUrl: String) {
+        self.init(url: URL(string: imageUrl))
     }
 }
